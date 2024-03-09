@@ -1,7 +1,9 @@
 package com.hnalovski.noteapp.components
 
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -27,7 +29,6 @@ fun NoteInputText(
     TextField(
         value = text,
         onValueChange = onTextChange,
-        colors = TextFieldDefaults.colors(Color.Transparent),
         modifier = modifier,
         label = { Text(text = label) },
         maxLines = maxLine,
@@ -36,7 +37,20 @@ fun NoteInputText(
             onImeAction()
             keyBoardController?.hide()
         })
-        
+
     )
+
+}
+
+@Composable
+fun NoteButtom(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+) {
+    Button(onClick = onClick, shape = CircleShape, enabled = enabled, modifier = modifier) {
+        Text(text = text)
+    }
 
 }
