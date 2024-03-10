@@ -94,7 +94,7 @@ fun NoteScreen(
 
             }, modifier = Modifier.padding(top = 10.dp))
         }
-        Divider(modifier = Modifier.padding(10.dp))
+        Divider(modifier = Modifier.padding(10.dp)) 
         LazyColumn {
             items(notes) { note ->
                 NoteRow(note = note, onNoteClicked = {
