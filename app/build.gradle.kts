@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("androidx.room")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -47,9 +50,17 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
 }
 
 dependencies {
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -65,4 +76,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+kapt {
+    correctErrorTypes = true
 }

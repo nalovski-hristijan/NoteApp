@@ -18,7 +18,9 @@ import com.hnalovski.noteapp.model.Note
 import com.hnalovski.noteapp.screen.NoteScreen
 import com.hnalovski.noteapp.screen.NoteViewModel
 import com.hnalovski.noteapp.ui.theme.NoteAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
