@@ -36,7 +36,6 @@ import com.hnalovski.noteapp.components.NoteButtom
 import com.hnalovski.noteapp.components.NoteInputText
 import com.hnalovski.noteapp.data.NotesDataSource
 import com.hnalovski.noteapp.model.Note
-import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -130,10 +129,10 @@ fun NoteRow(
         ) {
             Text(text = note.title, style = MaterialTheme.typography.titleLarge)
             Text(text = note.description, style = MaterialTheme.typography.titleMedium)
-            Text(
-                text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d ,MMM")),
-                style = MaterialTheme.typography.titleMedium
-            )
+//            Text(
+//                text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d ,MMM")),
+//                style = MaterialTheme.typography.titleMedium
+//            )
 
         }
 
