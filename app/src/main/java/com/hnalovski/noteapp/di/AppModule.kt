@@ -2,7 +2,6 @@ package com.hnalovski.noteapp.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.hnalovski.noteapp.data.NoteDatabase
 import com.hnalovski.noteapp.data.NoteDatabaseDao
 import dagger.Module
@@ -22,5 +21,5 @@ object AppModule {
     @Singleton
     @Provides
     fun providesAppDatabase(@ApplicationContext context: Context): NoteDatabase =
-        Room.databaseBuilder(context, NoteDatabase::class.java, "note_db").build()
+        Room.databaseBuilder(context, NoteDatabase::class.java, "note_db").fallbackToDestructiveMigration().build()
 }
