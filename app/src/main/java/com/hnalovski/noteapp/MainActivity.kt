@@ -32,7 +32,7 @@ fun NotesApp(noteViewModel: NoteViewModel) {
         noteViewModel.addNote(it)
     }, onRemoveNote = {
         noteViewModel.removeNote(it)
-    })
+    }, onAllNotesDelete = noteViewModel)
 }
 
 
@@ -40,6 +40,6 @@ fun NotesApp(noteViewModel: NoteViewModel) {
 @Composable
 fun GreetingPreview() {
     NoteAppTheme {
-        NoteScreen(notes = NotesDataSource().loadNotes(), onAddNote = {}, onRemoveNote = {})
+
     }
 }

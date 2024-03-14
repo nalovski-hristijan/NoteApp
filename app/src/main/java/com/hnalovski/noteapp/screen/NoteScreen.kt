@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +37,7 @@ import com.hnalovski.noteapp.components.NoteButtom
 import com.hnalovski.noteapp.components.NoteInputText
 import com.hnalovski.noteapp.data.NotesDataSource
 import com.hnalovski.noteapp.model.Note
+import com.hnalovski.noteapp.repository.NoteRepository
 import com.hnalovski.noteapp.util.formatDate
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,7 +45,8 @@ import com.hnalovski.noteapp.util.formatDate
 fun NoteScreen(
     notes: List<Note>,
     onAddNote: (Note) -> Unit,
-    onRemoveNote: (Note) -> Unit
+    onRemoveNote: (Note) -> Unit,
+    onAllNotesDelete: NoteViewModel
 ) {
     var title by remember {
         mutableStateOf("")
@@ -59,7 +62,10 @@ fun NoteScreen(
         TopAppBar(title = {
             Text(text = stringResource(id = R.string.app_name))
         }, actions = {
-            Icon(imageVector = Icons.Rounded.Notifications, contentDescription = "Icon")
+            Icon(modifier = Modifier.clickable {
+                onAllNotesDelete.deleteAllNotes()
+                Toast.makeText(context, "All notes have been deleted", Toast.LENGTH_SHORT).show()
+            }, imageVector = Icons.Rounded.Delete, contentDescription = "Delete Icon")
         }, colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFFDADAF3)))
 
         //content
@@ -94,7 +100,7 @@ fun NoteScreen(
 
             }, modifier = Modifier.padding(top = 10.dp))
         }
-        Divider(modifier = Modifier.padding(10.dp)) 
+        Divider(modifier = Modifier.padding(10.dp))
         LazyColumn {
             items(notes) { note ->
                 NoteRow(note = note, onNoteClicked = {
@@ -113,7 +119,7 @@ fun NoteRow(
     onNoteClicked: (Note) -> Unit
 ) {
     Surface(
-        modifier = Modifier
+        modifier = modifier
             .padding(4.dp)
             .clip(RoundedCornerShape(topEnd = 33.dp, bottomStart = 33.dp))
             .fillMaxWidth(),
@@ -124,7 +130,7 @@ fun NoteRow(
             modifier = Modifier
                 .padding(horizontal = 14.dp, vertical = 6.dp)
                 .clickable {
-                           onNoteClicked(note)
+                    onNoteClicked(note)
                 },
             horizontalAlignment = Alignment.Start
         ) {
@@ -140,8 +146,3 @@ fun NoteRow(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun NotesScreenPreview() {
-    NoteScreen(notes = NotesDataSource().loadNotes(), onAddNote = {}, onRemoveNote = {})
-}
